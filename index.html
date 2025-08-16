@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collabs99 — Student Collaboration Program</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root{ --bg: #0b1020; --card: rgba(255,255,255,0.06); --stroke: rgba(255,255,255,0.14); --text: #f7f9ff; --muted: rgba(255,255,255,.78); --cyan: #19d1d6; --fuchsia: #e45ad2; --amber: #f6b73c; --glow: 0 0 30px rgba(25,209,214,.45), 0 0 60px rgba(228,90,210,.35); } /* Base */ html,body{height:100%} body{ margin:0; font-family: "Outfit", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Inter", sans-serif; color: var(--text); background: var(--bg); overflow-x: hidden; } a{color: inherit; text-decoration: none} .container{max-width: 1160px; margin: 0 auto; padding: 0 20px} /* Animated background (neon gradient + grid) */ .bg{ position: fixed; inset: 0; z-index: -2; background: radial-gradient(80% 60% at 50% -10%, rgba(59,130,246,.35), transparent), radial-gradient(60% 50% at -10% 50%, rgba(228,90,210,.30), transparent), radial-gradient(60% 50% at 110% 50%, rgba(246,183,60,.25), transparent); } .grid-overlay{ position: fixed; inset:0; z-index:-1; opacity:.28; background-image: linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px); background-size: 40px 40px, 40px 40px; pointer-events:none; } .float-a, .float-b{ position: fixed; border-radius: 999px; filter: blur(60px); animation: float 12s ease-in-out infinite; } .float-a{ width: 34rem; height:34rem; top:-9rem; right:-8rem; background: radial-gradient(circle at 30% 30%, rgba(228,90,210,.45), rgba(25,209,214,.35)); } .float-b{ width: 30rem; height:30rem; bottom:-8rem; left:-8rem; background: radial-gradient(circle at 60% 60%, rgba(25,209,214,.35), rgba(246,183,60,.35)); animation-duration: 14s } @keyframes float { 0%{transform:translateY(0)} 50%{transform:translateY(18px)} 100%{transform:translateY(0)} } /* Header */ header{ position: sticky; top:0; z-index:50; backdrop-filter: blur(10px); background: rgba(10,13,23,.4); border-bottom: 1px solid var(--stroke); } .header-content { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; flex-wrap: wrap; } .brand{display:flex; align-items:center; gap:14px;} .logo{ width:50px; height:50px; position:relative; border-radius:16px; background: linear-gradient(135deg, var(--cyan), var(--fuchsia)); box-shadow: var(--glow); } .logo::after{ content:"99"; position:absolute; inset:3px; display:grid; place-items:center; background: #0b1020; color:#fff; font-weight:900; border-radius:12px; letter-spacing:-.02em; border: 1px solid rgba(255,255,255,.22); } nav{display:flex; gap:8px} .nav-btn{ position:relative; padding:10px 16px; border-radius:16px; color:var(--muted); border: 1px solid transparent; transition: .25s; } .nav-btn.active, .nav-btn:hover{ color: #fff; border-color: rgba(255,255,255,.18); background: linear-gradient(90deg, rgba(25,209,214,.18), rgba(228,90,210,.18)); } .cta{ padding:10px 16px; border-radius:18px; font-weight:700; background: linear-gradient(90deg, var(--fuchsia), var(--cyan)); box-shadow: var(--glow); } /* Hero */ .hero{padding: 52px 0 18px} .badge{ display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; background: rgba(255,255,255,.08); border:1px solid var(--stroke); color: var(--muted); font-size:12px } .title{ margin: 14px 0 10px; font-weight:900; line-height:1.05; font-size: clamp(34px, 6vw, 64px); letter-spacing:-.02em; } .title .gradient{ background: linear-gradient(90deg, var(--cyan), var(--fuchsia), var(--amber)); -webkit-background-clip:text; background-clip:text; color: transparent; text-shadow: 0 0 30px rgba(25,209,214,.35); } .lead{color: var(--muted); max-width: 720px; font-size: 1.05rem} /* 3D cube */ .cube-wrap{ perspective: 1000px; } .cube{ width:min(80vmin, 380px); height:min(80vmin,380px); position: relative; transform-style: preserve-3d; animation: spin 18s linear infinite; } .cube .face{ position:absolute; inset:0; border-radius:24px; border:2px solid; background: linear-gradient(135deg, rgba(25,209,214,.14), rgba(228,90,210,.14)); box-shadow: 0 0 50px rgba(25,209,214,.18) inset; } .f1{transform: translateZ(140px); border-color: rgba(25,209,214,.6)} .f2{transform: rotateY(90deg) translateZ(140px); border-color: rgba(228,90,210,.6)} .f3{transform: rotateY(180deg) translateZ(140px); border-color: rgba(246,183,60,.6)} .f4{transform: rotateY(-90deg) translateZ(140px); border-color: rgba(25,209,214,.6)} .f5{transform: rotateX(90deg) translateZ(140px); border-color: rgba(228,90,210,.6)} .f6{transform: rotateX(-90deg) translateZ(140px); border-color: rgba(246,183,60,.6)} @keyframes spin{ from{transform: rotateY(0)} to{transform: rotateY(360deg)} } /* Cards */ .cards{display:grid; gap:18px; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); margin: 24px 0 10px} .card{ position:relative; padding:18px; border-radius:22px; background: var(--card); border:1px solid var(--stroke); box-shadow: 0 10px 40px rgba(0,0,0,.25), inset 0 0 40px rgba(255,255,255,.04); transform: translateZ(0); transition: transform .25s ease, box-shadow .25s ease; } .card:before{ content:""; position:absolute; inset:-1px; border-radius:22px; background: linear-gradient(135deg, rgba(25,209,214,.18), rgba(228,90,210,.18)); filter: blur(12px); opacity:.6; z-index:-1; } .card:hover{ transform: translateY(-6px); box-shadow: 0 18px 70px rgba(25,209,214,.25); } /* QR strip */ .qr-strip{ display:grid; gap:20px; grid-template-columns: 1fr auto; align-items:center; padding:16px; border-radius:22px; margin: 20px 0 40px; background: rgba(255,255,255,.06); border:1px solid var(--stroke); } .qr{ width: 160px; height: 160px; border-radius: 14px; background:#fff; display:grid; place-items:center; border: 1px solid rgba(255,255,255,.2); box-shadow: 0 10px 40px rgba(0,0,0,.25); } .qr img{max-width:100%; max-height:100%; object-fit:contain} /* Section headings */ h2.section{font-size: clamp(28px, 4vw, 42px); margin: 20px 0 8px; font-weight:900} /* Footer */ footer{border-top:1px solid var(--stroke); margin-top: 36px} .foot{padding:24px 0; color: rgba(255,255,255,.7); font-size: 13px; text-align:center} /* Print: 3 pages */ @media print{ .no-print{ display:none !important } header{ position: static !important; background: none; border:none } .page{ page-break-after: always } .qr-strip{ -webkit-print-color-adjust: exact; print-color-adjust: exact } } 
+        
+        /* Mobile Specific Updates */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: row; /* Keep horizontal */
+                align-items: center;
+                gap: 10px;
+            }
+            nav {
+                display: none; /* Hide nav links to prevent wrapping issues */
+            }
+            .brand {
+                flex-grow: 1; /* Allow brand to take up space */
+            }
+            .cta {
+                text-align: center;
+                margin: 0;
+            }
+            .logo {
+                width: 48px;
+                height: 48px;
+            }
+            .qr-strip {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                text-align: center;
+            }
+            .qr {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="bg">
+        <div class="float-a"></div>
+        <div class="float-b"></div>
+    </div>
+    <div class="grid-overlay"></div>
+
+    <header id="home">
+        <div class="container header-content">
+            <a href="#" class="brand">
+                <div class="logo"></div>
+                Collabs99
+            </a>
+            <nav class="no-print">
+                <a href="#home" class="nav-btn">Home</a>
+                <a href="#program" class="nav-btn">Program</a>
+                <a href="#legal" class="nav-btn">Legal</a>
+            </nav>
+            <a id="joinTop" href="#" target="_blank" class="cta">Join WhatsApp</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="hero">
+            <span class="badge">✨ Futuristic Student Project Lab</span>
+            <h1 class="title">
+                <span class="gradient">Collaborate. Innovate.</span> Build the Future.
+            </h1>
+            <p class="lead">
+                Collabs99 brings together passionate students to build real products. Clear selection challenge → hands-on collaboration → performance-based stipend. Learn by doing in a supportive, high-energy team.
+            </p>
+            <div style="margin-top:20px" class="no-print">
+                <a id="joinHer" href="https://docs.google.com/forms/d/e/1FAIpQLSfXtD3ja3vzeRjv8xW-5qwAwnUzUYvIdCigt7V21EcNyn3PqA/viewform?usp=header" class="cta" target="_blank" rel="noreferrer">
+                    Fill the Registration Form
+                </a>
+            </div>
+        </div>
+
+        <section class="container">
+            <div class="cards">
+                <div class="card">
+                    <h3 style="margin:2px 0 6px">🚀 Build Real Things</h3>
+                    <p style="color:var(--muted)">Ship websites, tools, and services that solve problems and make a portfolio that stands out.</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin:2px 0 6px">🧠 Crack the Challenge</h3>
+                    <p style="color:var(--muted)">Aptitude → coding → interview. Clear, merit-based selection for motivated builders.</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin:2px 0 6px">💰 Earn by Impact</h3>
+                    <p style="color:var(--muted)">Stipend or project-based pay for selected collaborators based on contribution.</p>
+                </div>
+            </div>
+            <div class="qr-strip">
+                <div>
+                    <h3 style="margin:0 0 6px">Join for Payment Instructions & Full Details</h3>
+                    <p style="margin:0; color:var(--muted)">
+                        All updates, timelines, and how to proceed are shared only in the official WhatsApp group.
+                    </p>
+                    <div style="display:flex;gap:12px; margin-top:14px; flex-wrap:wrap">
+                        <a id="joinStrip"  class="cta" href="https://chat.whatsapp.com/KvfMrXlLloFKiTrnSYWSVD?mode=ac_t" target="_blank" rel="noreferrer">Open WhatsApp Group</a>
+                        <div class="badge">🔒 Official link only — do not pay outside the group</div>
+                    </div>
+                </div>
+                <div class="qr no-print">
+                    <img id="qrImage" src="https://res.cloudinary.com/dceznyjno/image/upload/fl_preserve_transparency/v1755356984/Screenshot_20250816_200653_WhatsApp_ppdogn.jpg?_s=public-apps">
+                </div>
+            </div>
+        </section>
+
+        <section id="program">
+            <h2 class="section">Program Overview</h2>
+            <p class="lead">
+                Clear selection → hands-on collaboration → performance-based stipend.
+            </p>
+
+            <div class="cards" style="margin-top:18px">
+                <div class="card">
+                    <h3 style="margin:4px 0 10px">◈ Selection Process</h3>
+                    <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.7">
+                        <li>Round 1: <b>Aptitude</b> — logic & analytical thinking</li>
+                        <li>Round 2: <b>Coding</b> — problem-solving & code quality</li>
+                        <li>Round 3: <b>Interview</b> — mindset, collaboration, ownership</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 style="margin:4px 0 10px">✦ If Selected</h3>
+                    <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.7">
+                        <li>Collaborate on live projects with peers across India</li>
+                        <li>Receive <b>stipend or project-based payment</b> based on contribution</li>
+                        <li>Mentorship, reviews, demos & portfolio-ready work</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 style="margin:4px 0 10px">⚙ Focus Areas</h3>
+                    <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.7">
+                        <li>Web apps, automation tools, service platforms</li>
+                        <li>Design systems, frontend excellence, reliable backends</li>
+                        <li>Team play: Git, issues, sprints, demos</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card" style="margin-top:20px">
+                <h3 style="margin:2px 0 10px">How to Begin</h3>
+                <ol style="margin:0; padding-left:18px; color:var(--muted); line-height:1.7">
+                    <li>Join the official WhatsApp group using the button/QR.</li>
+                    <li>Read the pinned message for payment instructions & timelines.</li>
+                    
+                    <li>Register and prepare for Round 1 (aptitude). Syllabus & samples shared in the group.</li>
+                </ol>
+                <div style="margin-top:14px"><a id="joinProgram" href="https://docs.google.com/forms/d/e/1FAIpQLSfXtD3ja3vzeRjv8xW-5qwAwnUzUYvIdCigt7V21EcNyn3PqA/viewform?usp=header" class="cta" target="_blank" rel="noreferrer">Registration Form</a>
+                </div>
+            </div>
+            <div class="card" style="margin-top:20px">
+                <h3 style="margin:2px 0 10px">Presented by</h3>
+                <p style="margin:0; color:var(--muted)">
+                  <br>
+                    <b>Directing Manager :Kundan PD Yadav</b>
+                    <br>
+                    <b>Vice-Manager:Chandan Sah Teli</b>
+                    <b>Executive Manager :Aman Kumar Sah</b>
+                </p>
+            </div>
+        </section>
+
+        <section id="legal">
+            <h2 class="section">Terms, Legality & Contact</h2>
+
+            <div class="cards">
+                <div class="card">
+                    <h3 style="margin:2px 0 10px">✔ Legal Notice</h3>
+                    <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.7">
+                        <li>Collabs99 is a <b>student-led collaboration program</b>, not a company recruitment drive.</li>
+                        <li>Any registration/payment details are <b>shared only inside the official WhatsApp group</b>. Do not pay outside the specified instructions.</li>
+                        <li>Selection is based on <b>aptitude, coding, and interview</b>. Only selected students collaborate on projects.</li>
+                        <li>This is <b>not an employment offer</b> and does not guarantee long-term employment.</li>
+                        <li>Selected collaborators may receive a <b>stipend or project-based payment</b> depending on contribution and project success.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 style="margin:2px 0 10px">✳ Code of Conduct</h3>
+                    <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.7">
+                        <li>Respect, honesty, and zero tolerance for plagiarism.</li>
+                        <li>Commit to timelines; communicate blockers early.</li>
+                        <li>Use Git and follow review guidelines.</li>
+                        <li>No misrepresentation of association; always state “student collaboration”.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 style="margin:2px 0 10px">Contact</h3>
+                    <p style="margin:0 0 10px; color:var(--muted)">
+                        Collabs99 — Student Collaboration Program<br>
+                        Led by <br>
+                      <b>Kundan PD Yadav</b>
+                        <br>
+                        <b>Chandan Sah Teli</b>
+                        <br>
+                        <b>Aman Kumar Sah</b>
+                    </p>
+                    <br>
+                    <a id="joinLegal" class="cta" target="_blank" rel="noreferrer">Join Official WhatsApp Group</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="no-print">
+        <div class="container foot">
+            <a href="#" onclick="window.print()" style="margin-right:16px">Print / Save as PDF</a>
+            &copy; <span id="yr">2025</span> Collabs99 — Student Collaboration Program
+        </div>
+    </footer>
+
+    <script>
+        // ---- Configuration: put your real group link here ----
+        const WHATSAPP_URL = "https://chat.whatsapp.com/KvfMrXlLloFKiTrnSYWSVD?mode=ac_t";
+        const QR_IMG = "https://collection.cloudinary.com/dceznyjno/fe3905b7e94b7bb35aa41b2f732390a2";
+
+        // Wire links and QR image
+        document.getElementById("joinTop").href = WHATSAPP_URL;
+        document.getElementById("joinHero").href = WHATSAPP_URL;
+        document.getElementById("joinStrip").href = WHATSAPP_URL;
+        document.getElementById("joinProgram").href = WHATSAPP_URL;
+        document.getElementById("joinLegal").href = WHATSAPP_URL;
+        document.getElementById("qrImage").src = QR_IMG;
+
+        // Active nav state on scroll
+        const sections = ["home", "program", "legal"].map(id => document.getElementById(id));
+        const navLinks = [...document.querySelectorAll("nav .nav-btn")];
+        const yr = document.getElementById("yr");
+        yr.textContent = new Date().getFullYear();
+
+        const onScroll = () => {
+            let idx = 0, top = window.scrollY + 120;
+            sections.forEach((sec, i) => {
+                if (sec.offsetTop <= top) idx = i;
+            });
+            navLinks.forEach((a, i) => a.classList.toggle("active", i === idx));
+        };
+        document.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+    </script>
+
+</body>
+</html>
